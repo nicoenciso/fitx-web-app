@@ -1,3 +1,7 @@
+import { BrowserRouter } from "react-router";
+import AppRoutes from "./router/routes";
+import "./assets/fonts/fonts.css";
+
 /**
  * Main application component
  * @module App
@@ -9,10 +13,11 @@
  * @returns {JSX.Element}
  */
 const App = () => {
-
   return (
-    <div>FITX</div>
-  )
-}
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;
