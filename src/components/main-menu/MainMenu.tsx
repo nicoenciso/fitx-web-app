@@ -57,7 +57,7 @@ const MainMenu = () => {
         onClose={handleClose}
         sx={(theme) => ({
           "& .MuiPaper-root": {
-            background: `linear-gradient(${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
+            background: `linear-gradient(${theme.palette.primary.main},${theme.palette.primary.main} 50%, ${theme.palette.primary.dark} 100%)`,
             color: "primary.contrastText",
             border: `1px solid ${theme.palette.primary.dark}`,
           },
