@@ -3,6 +3,7 @@ import RegisteredCustomersBadge from "../registered-customers-badge/RegisteredCu
 import CurrentEarningsBadge from "../current-earnings-badge/CurrentEarningsBadge";
 import ActiveCustomersBadge from "../active-customers-badge/ActiveCustomersBadge";
 import DelinquentCustomersBadge from "../delinquent-customers-badge/DelinquentCustomersBadge";
+import SeeCustomersBadge from "../see-customers-badge/SeeCustomersBadge";
 
 /**
  * Container component for badges.
@@ -18,12 +19,14 @@ const BadgesContainer = () => {
         alignItems: "center",
         gap: 3,
         marginY: 2,
+        p: 0,
       }}
     >
       <RegisteredCustomersBadge />
       <CurrentEarningsBadge />
       <ActiveCustomersBadge />
       <DelinquentCustomersBadge />
+      <SeeCustomersBadge />
     </Container>
   );
 };

@@ -1,0 +1,38 @@
+import { Button, Paper } from "@mui/material";
+import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
+
+/**
+ * See customers badge component.
+ * @returns {JSX.Element}
+ */
+const SeeCustomersBadge = () => {
+  return (
+    <Paper
+      sx={(theme) => ({
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.main} 50%, ${theme.palette.primary.dark} 100%)`,
+        width: { xs: "100%", sm: 600 },
+        height: 60,
+        borderRadius: 0,
+        p: 0,
+      })}
+    >
+      <Button
+        variant="outlined"
+        startIcon={<ChecklistOutlinedIcon />}
+        sx={{
+          color: "primary.contrastText",
+          px: 5,
+          borderColor: "primary.contrastText",
+          borderRadius: 0,
+        }}
+      >
+        VER LISTA DE CLIENTES
+      </Button>
+    </Paper>
+  );
+};
+
+export default SeeCustomersBadge;
