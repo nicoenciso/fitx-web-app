@@ -13,8 +13,8 @@ const SeeCustomersBadge = () => {
         justifyContent: "center",
         alignItems: "center",
         background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.main} 50%, ${theme.palette.primary.dark} 100%)`,
-        width: { xs: "100%", sm: 600 },
-        height: 60,
+        width: { xs: "100%", lg: 600 },
+        height: "3rem",
         borderRadius: 0,
         p: 0,
       })}

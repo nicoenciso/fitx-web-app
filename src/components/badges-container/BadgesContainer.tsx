@@ -1,9 +1,10 @@
-import { Container } from "@mui/material";
+import { Grid } from "@mui/material";
 import RegisteredCustomersBadge from "../registered-customers-badge/RegisteredCustomersBadge";
 import CurrentEarningsBadge from "../current-earnings-badge/CurrentEarningsBadge";
 import ActiveCustomersBadge from "../active-customers-badge/ActiveCustomersBadge";
 import DelinquentCustomersBadge from "../delinquent-customers-badge/DelinquentCustomersBadge";
 import SeeCustomersBadge from "../see-customers-badge/SeeCustomersBadge";
+import MonthlyIncome from "../monthly-income/MonthlyIncome";
 
 /**
  * Container component for badges.
@@ -11,23 +12,41 @@ import SeeCustomersBadge from "../see-customers-badge/SeeCustomersBadge";
  */
 const BadgesContainer = () => {
   return (
-    <Container
+    <Grid
+      container
+      spacing={3}
+      direction="row"
+      justifyContent="center"
       sx={{
-        display: "flex",
-        flexDirection: { xs: "column", sm: "row" },
-        justifyContent: "center",
-        alignItems: "center",
-        gap: 3,
-        marginY: 2,
+        marginY: 5,
         p: 0,
       }}
     >
-      <RegisteredCustomersBadge />
-      <CurrentEarningsBadge />
-      <ActiveCustomersBadge />
-      <DelinquentCustomersBadge />
-      <SeeCustomersBadge />
-    </Container>
+      <Grid
+        container
+        spacing={3}
+        justifyContent={{ xs: "center", lg: "end" }}
+        alignItems="center"
+        size={{ xs: 12, lg: 6 }}
+        sx={{ maxWidth: 500 }}
+      >
+        <RegisteredCustomersBadge />
+        <CurrentEarningsBadge />
+        <ActiveCustomersBadge />
+        <DelinquentCustomersBadge />
+      </Grid>
+      <Grid
+        container
+        spacing={3}
+        justifyContent={{ xs: "center", lg: "start" }}
+        alignItems="center"
+        size={{ xs: 12, lg: 6 }}
+        sx={{ maxWidth: 500 }}
+      >
+        <SeeCustomersBadge />
+        <MonthlyIncome />
+      </Grid>
+    </Grid>
   );
 };
 

@@ -6,6 +6,7 @@ interface DataBadgeProps {
   icon?: React.ReactNode;
   children?: React.ReactNode;
   title?: string;
+  large?: boolean;
 }
 
 /**
@@ -14,13 +15,15 @@ interface DataBadgeProps {
  * @param {icon} - The icon to be displayed in the badge.
  * @param {children} - The content to be displayed inside the badge.
  * @param {title} - The title to be displayed in the badge.
- * @returns 
+ * @param {large} - To apply the custom size.
+ * @returns
  */
 const DataBadge: React.FC<DataBadgeProps> = ({
   variant = "normal",
   icon,
   title,
   children,
+  large = false,
 }) => {
   const bg =
     variant === "special"
@@ -37,8 +40,8 @@ const DataBadge: React.FC<DataBadgeProps> = ({
     <Paper
       sx={{
         background: bg,
-        width: 220,
-        height: "15rem",
+        width: { xs: 220, sm: large ? "100%" : 220 },
+        height: { xs: "15rem", sm: large ? "27rem" : "15rem" },
         borderRadius: 2,
         borderBottom: `2px solid ${borderColor}`,
         display: "flex",
@@ -46,7 +49,8 @@ const DataBadge: React.FC<DataBadgeProps> = ({
         justifyContent: "start",
         alignItems: "center",
         gap: 1,
-        padding: 2,
+        px: { xs: 2, sm: large ? 10 : 2 },
+        py: 2,
       }}
       elevation={0}
     >
