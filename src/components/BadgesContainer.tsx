@@ -1,10 +1,10 @@
 import { Grid } from "@mui/material";
-import RegisteredCustomersBadge from "../registered-customers-badge/RegisteredCustomersBadge";
-import CurrentEarningsBadge from "../current-earnings-badge/CurrentEarningsBadge";
-import ActiveCustomersBadge from "../active-customers-badge/ActiveCustomersBadge";
-import DelinquentCustomersBadge from "../delinquent-customers-badge/DelinquentCustomersBadge";
-import SeeCustomersBadge from "../see-customers-badge/SeeCustomersBadge";
-import MonthlyIncome from "../monthly-income/MonthlyIncome";
+import RegisteredCustomersBadge from "./RegisteredCustomersBadge";
+import CurrentEarningsBadge from "./CurrentEarningsBadge";
+import ActiveCustomersBadge from "./ActiveCustomersBadge";
+import DelinquentCustomersBadge from "./DelinquentCustomersBadge";
+import SeeCustomersBadge from "./SeeCustomersBadge";
+import MonthlyIncome from "./MonthlyIncome";
 
 /**
  * Container component for badges.

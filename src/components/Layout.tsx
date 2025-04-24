@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import AppBarCustom from "../appbar/AppBarCustom";
+import AppBarCustom from "./AppBarCustom";
 import { Outlet } from "react-router";
 
 /**

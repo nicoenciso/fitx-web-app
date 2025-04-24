@@ -1,11 +1,14 @@
 import { Button, Paper } from "@mui/material";
 import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
+import { useNavigate } from "react-router";
 
 /**
  * See customers badge component.
  * @returns {JSX.Element}
  */
 const SeeCustomersBadge = () => {
+  const navigate = useNavigate();
+
   return (
     <Paper
       sx={(theme) => ({
@@ -28,6 +31,7 @@ const SeeCustomersBadge = () => {
           borderColor: "primary.contrastText",
           borderRadius: 0,
         }}
+        onClick={() => navigate("/clientes")}
       >
         VER LISTA DE CLIENTES
       </Button>

@@ -1,5 +1,5 @@
 import { Paper, Typography } from "@mui/material";
-import theme from "../../styles/theme";
+import theme from "../styles/theme";
 
 interface DataBadgeProps {
   variant?: "normal" | "warning" | "special";

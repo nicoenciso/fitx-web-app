@@ -1,5 +1,5 @@
 import { LineChart } from "@mui/x-charts";
-import DataBadge from "../data-badge/DataBadge";
+import DataBadge from "./DataBadge";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 
 /**

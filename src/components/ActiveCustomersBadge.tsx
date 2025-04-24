@@ -1,4 +1,4 @@
-import DataBadge from "../data-badge/DataBadge";
+import DataBadge from "./DataBadge";
 import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
 import { Gauge, gaugeClasses } from "@mui/x-charts";
 

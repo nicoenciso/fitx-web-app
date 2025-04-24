@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import DataBadge from "../data-badge/DataBadge";
+import DataBadge from "./DataBadge";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 
 /**

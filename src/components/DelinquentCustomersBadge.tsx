@@ -1,5 +1,5 @@
 import { Gauge, gaugeClasses } from "@mui/x-charts";
-import DataBadge from "../data-badge/DataBadge";
+import DataBadge from "./DataBadge";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
 
 /**

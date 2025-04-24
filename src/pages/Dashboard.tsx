@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
-import MembershipHeader from "../components/membership-header/MembershipHeader";
-import BadgesContainer from "../components/badges-container/BadgesContainer";
+import MembershipHeader from "../components/MembershipHeader";
+import BadgesContainer from "../components/BadgesContainer";
 
 /**
  * Dashboard page component.

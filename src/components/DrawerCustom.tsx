@@ -14,6 +14,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router";
 
 /**
  * Component for the application drawer.
@@ -21,10 +22,19 @@ import MenuIcon from "@mui/icons-material/Menu";
  */
 const DrawerCustom = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const icons = [
-    <HomeOutlinedIcon sx={{ color: "primary.contrastText" }} />,
-    <ChecklistOutlinedIcon sx={{ color: "primary.contrastText" }} />,
+  const items = [
+    {
+      text: "Inicio",
+      href: "/",
+      icon: <HomeOutlinedIcon />,
+    },
+    {
+      text: "Ver lista de clientes",
+      href: "/clientes",
+      icon: <ChecklistOutlinedIcon />,
+    },
   ];
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -32,13 +42,22 @@ const DrawerCustom = () => {
   };
 
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+    <Box
+      sx={{
+        width: 250,
+        "& .MuiSvgIcon-root": {
+          color: "primary.contrastText",
+        },
+      }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+    >
       <List>
-        {["Inicio", "Ver lista de clientes"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{icons[index]}</ListItemIcon>
-              <ListItemText primary={text} />
+        {items.map((item, index) => (
+          <ListItem key={index} disablePadding>
+            <ListItemButton onClick={() => navigate(item.href)}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -46,9 +65,9 @@ const DrawerCustom = () => {
       <Divider sx={{ bgcolor: "primary.dark" }} />
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => navigate("/ayuda")}>
             <ListItemIcon>
-              <HelpOutlineIcon sx={{ color: "primary.contrastText" }} />
+              <HelpOutlineIcon />
             </ListItemIcon>
             <ListItemText primary="Ayuda" />
           </ListItemButton>

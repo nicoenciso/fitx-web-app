@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import Logo from "../logo/Logo";
-import MainMenu from "../main-menu/MainMenu";
-import DrawerCustom from "../drawer/DrawerCustom";
+import Logo from "./Logo";
+import MainMenu from "./MainMenu";
+import DrawerCustom from "./DrawerCustom";
 
 /**
  * Component for the application AppBar.
