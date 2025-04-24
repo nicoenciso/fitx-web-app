@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import DataBadge from "../data-badge/DataBadge";
+import DataBadge from "../components/DataBadge";
 import GroupsIcon from "@mui/icons-material/Groups";
 
 /**
