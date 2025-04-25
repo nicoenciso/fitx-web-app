@@ -1,6 +1,7 @@
 import { BrowserRouter } from "react-router";
 import AppRoutes from "./router/routes";
 import "./assets/fonts/fonts.css";
+import { CustomerProvider } from "./contexts/CustomersContext";
 
 /**
  * Main application component
@@ -15,7 +16,9 @@ import "./assets/fonts/fonts.css";
 const App = () => {
   return (
     <BrowserRouter>
-      <AppRoutes />
+      <CustomerProvider>
+        <AppRoutes />
+      </CustomerProvider>
     </BrowserRouter>
   );
 };

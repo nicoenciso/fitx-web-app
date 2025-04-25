@@ -13,7 +13,7 @@ const Customers = () => {
         color="primary.contrastText"
         fontWeight="bold"
         align="center"
-        mt={4}
+        my={4}
       >
         LISTA DE CLIENTES
       </Typography>
