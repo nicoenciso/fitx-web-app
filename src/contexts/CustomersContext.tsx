@@ -6,6 +6,9 @@ import Customer from "../interfaces/Customer";
 interface CustomerContextType {
   customers: Customer[];
   setCustomers: (customers: Customer[]) => void;
+  registeredCustomers: number;
+  activeCustomers: number;
+  delinquentCustomers: number;
 }
 
 const CustomerContext = createContext<CustomerContextType | undefined>(
@@ -25,8 +28,24 @@ export const CustomerProvider = ({ children }: { children: ReactNode }) => {
     fetCustomers();
   }, []);
 
+  const registeredCustomers = customers.length;
+  const activeCustomers = customers.filter(
+    (customer) => customer.active
+  ).length;
+  const delinquentCustomers = customers.filter(
+    (customer) => !customer.active
+  ).length;
+
   return (
-    <CustomerContext.Provider value={{ customers, setCustomers }}>
+    <CustomerContext.Provider
+      value={{
+        customers,
+        setCustomers,
+        registeredCustomers,
+        activeCustomers,
+        delinquentCustomers,
+      }}
+    >
       {children}
     </CustomerContext.Provider>
   );

@@ -1,6 +1,7 @@
 import { Gauge, gaugeClasses } from "@mui/x-charts";
 import DataBadge from "./DataBadge";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
+import { useCustomerContext } from "../hooks/useCustomerContext";
 
 /**
  * DelinquentCustomersBadge component
@@ -8,6 +9,8 @@ import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
  * @returns {JSX.Element}
  */
 const DelinquentCustomersBadge = () => {
+  const { delinquentCustomers } = useCustomerContext();
+
   return (
     <DataBadge
       variant="warning"
@@ -21,7 +24,7 @@ const DelinquentCustomersBadge = () => {
       <Gauge
         width={150}
         height={100}
-        value={10}
+        value={delinquentCustomers}
         valueMax={160}
         startAngle={-90}
         endAngle={90}

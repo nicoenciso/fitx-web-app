@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import DataBadge from "../components/DataBadge";
 import GroupsIcon from "@mui/icons-material/Groups";
+import { useCustomerContext } from "../hooks/useCustomerContext";
 
 /**
  * Component that displays a badge for registered customers.
@@ -8,6 +9,10 @@ import GroupsIcon from "@mui/icons-material/Groups";
  * @returns {JSX.Element}
  */
 const RegisteredCustomersBadge = () => {
+  const { customers } = useCustomerContext();
+
+  const registeredCustomers = customers.length;
+
   return (
     <DataBadge
       variant="special"
@@ -20,7 +25,7 @@ const RegisteredCustomersBadge = () => {
         fontWeight="bold"
         sx={{ fontFamily: "Instrument Sans, sans-serif" }}
       >
-        169
+        {registeredCustomers}
       </Typography>
     </DataBadge>
   );

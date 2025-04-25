@@ -12,6 +12,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
+import useUserSession from "../hooks/useUserSession";
 
 /**
  * Component for the main menu of the application.
@@ -20,6 +21,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
  */
 const MainMenu = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { user } = useUserSession()
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -73,14 +75,14 @@ const MainMenu = () => {
               fontWeight="bold"
               sx={{ fontFamily: "Instrument Sans, sans-serif" }}
             >
-              John Doue
+              {user?.displayName}
             </Typography>
             <Typography
               variant="body2"
               fontWeight="bold"
               sx={{ fontFamily: "Instrument Sans, sans-serif" }}
             >
-              jdoe@acme.com
+              {user?.email}
             </Typography>
           </Stack>
         </MenuItem>

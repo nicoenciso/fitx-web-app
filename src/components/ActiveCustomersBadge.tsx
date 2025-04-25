@@ -1,6 +1,7 @@
 import DataBadge from "./DataBadge";
 import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
 import { Gauge, gaugeClasses } from "@mui/x-charts";
+import { useCustomerContext } from "../hooks/useCustomerContext";
 
 /**
  * ActiveCustomersBadge component
@@ -8,6 +9,8 @@ import { Gauge, gaugeClasses } from "@mui/x-charts";
  * @returns {JSX.Element}
  */
 const ActiveCustomersBadge = () => {
+  const { activeCustomers } = useCustomerContext();
+
   return (
     <DataBadge
       variant="normal"
@@ -21,7 +24,7 @@ const ActiveCustomersBadge = () => {
       <Gauge
         width={150}
         height={100}
-        value={150}
+        value={activeCustomers}
         valueMax={160}
         startAngle={-90}
         endAngle={90}
