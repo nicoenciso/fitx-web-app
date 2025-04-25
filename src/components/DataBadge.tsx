@@ -61,7 +61,7 @@ const DataBadge: React.FC<DataBadgeProps> = ({
         variant="h6"
         fontWeight="bold"
         align="center"
-        sx={{ fontFamily: "Instrument Sans, sans-serif" }}
+        fontFamily="Instrument Sans, sans-serif"
       >
         {title}
       </Typography>
