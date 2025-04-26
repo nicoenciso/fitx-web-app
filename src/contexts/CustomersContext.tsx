@@ -2,6 +2,7 @@ import { createContext, useState, ReactNode, useEffect } from "react";
 import { db } from "../firebase/connection";
 import { collection, getDocs } from "firebase/firestore";
 import Customer from "../interfaces/Customer";
+import useUserSession from "../hooks/useUserSession";
 
 interface CustomerContextType {
   customers: Customer[];
@@ -17,6 +18,7 @@ const CustomerContext = createContext<CustomerContextType | undefined>(
 
 export const CustomerProvider = ({ children }: { children: ReactNode }) => {
   const [customers, setCustomers] = useState<Customer[] | []>([]);
+  const { user } = useUserSession();
 
   useEffect(() => {
     const fetCustomers = async () => {
@@ -26,7 +28,7 @@ export const CustomerProvider = ({ children }: { children: ReactNode }) => {
       );
     };
     fetCustomers();
-  }, []);
+  }, [user]);
 
   const registeredCustomers = customers.length;
   const activeCustomers = customers.filter(
