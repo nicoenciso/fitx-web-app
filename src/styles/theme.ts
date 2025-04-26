@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material/styles";
+import { textField } from "./inputs";
 
 /**
  * Personalización del tema global de MUI
@@ -19,6 +20,9 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: "Oswald, sans-serif",
+  },
+  components: {
+    MuiTextField: textField
   }
 });
 

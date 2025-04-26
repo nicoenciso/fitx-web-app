@@ -2,8 +2,9 @@ import { Route, Routes } from "react-router";
 import Dashboard from "../pages/Dashboard";
 import Layout from "../components/Layout";
 import Customers from "../pages/Customers";
-import Auth from "../pages/Login";
+import Login from "../pages/Login";
 import Help from "../pages/Help";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 /**
  * Component that defines the application routes.
@@ -13,12 +14,15 @@ import Help from "../pages/Help";
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="clientes" element={<Customers />} />
-        <Route path="ayuda" element={<Help />} />
-        <Route path="iniciar" element={<Auth />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="clientes" element={<Customers />} />
+          <Route path="ayuda" element={<Help />} />
+        </Route>
       </Route>
+      <Route path="iniciar" element={<Login />} />
+      <Route path="*" element={<Login />} />
     </Routes>
   );
 };

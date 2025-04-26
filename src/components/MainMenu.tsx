@@ -13,6 +13,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import useUserSession from "../hooks/useUserSession";
+import { auth } from "../firebase/connection";
 
 /**
  * Component for the main menu of the application.
@@ -21,7 +22,7 @@ import useUserSession from "../hooks/useUserSession";
  */
 const MainMenu = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const { user } = useUserSession()
+  const { user } = useUserSession();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -99,7 +100,7 @@ const MainMenu = () => {
           </ListItemIcon>
           Perfil
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => auth.signOut()}>
           <ListItemIcon>
             <LogoutIcon sx={{ color: "primary.contrastText" }} />
           </ListItemIcon>

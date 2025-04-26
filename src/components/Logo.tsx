@@ -1,12 +1,16 @@
-import { SvgIcon } from "@mui/material";
+import { SvgIcon, SxProps } from "@mui/material";
+
+interface LogoProps {
+  sx?: SxProps
+}
 
 /**
  * Logo component for the application.
  * @returns {JSX.Element}
  */
-const Logo = () => {
+const Logo: React.FC<LogoProps> = ({ sx }) => {
   return (
-    <SvgIcon>
+    <SvgIcon sx={sx}>
       <svg
         width="150"
         height="145"

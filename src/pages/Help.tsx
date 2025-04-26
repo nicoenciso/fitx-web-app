@@ -1,5 +1,8 @@
 import { Stack, Typography } from "@mui/material";
 
+/**
+ * Help page
+ */
 const Help = () => {
   return (
     <Stack>
