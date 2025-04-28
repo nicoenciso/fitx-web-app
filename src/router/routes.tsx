@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router";
 import Dashboard from "../pages/Dashboard";
-import Layout from "../components/Layout";
+import MainLayout from "../layouts/MainLayout";
 import Customers from "../pages/Customers";
 import Login from "../pages/Login";
 import Help from "../pages/Help";
@@ -15,7 +15,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<MainLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="clientes" element={<Customers />} />
           <Route path="ayuda" element={<Help />} />
