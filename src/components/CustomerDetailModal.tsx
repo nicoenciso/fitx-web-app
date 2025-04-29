@@ -36,7 +36,7 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
           bgcolor: theme.palette.primary.dark,
           background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
           borderRadius: 1,
-          border: `3px solid ${theme.palette.primary.dark}`,
+          border: `2px solid ${theme.palette.primary.dark}`,
           boxShadow: 24,
           px: 4,
           pt: 1,
@@ -73,7 +73,7 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
           <Typography variant="subtitle1">Email: {data?.email}</Typography>
           {data?.expirationDate && (
             <Typography variant="subtitle1">
-              Vemcimiento:{" "}
+              Vto:{" "}
               {formatTimestamp(
                 data.expirationDate.seconds,
                 data.expirationDate.nanoseconds

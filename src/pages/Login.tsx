@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/connection";
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import theme from "../styles/theme";
 import Logo from "../components/Logo";
 import { useNavigate } from "react-router";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 /**
  * Login page
@@ -15,6 +23,21 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+
+  const handleMouseUpPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
 
   const navigate = useNavigate();
 
@@ -51,7 +74,7 @@ const Login: React.FC = () => {
       </Stack>
       <Stack spacing={3}>
         <Typography variant="h5" fontWeight="bold" align="center">
-          INICIAR SESION
+          INICIAR SESIÓN
         </Typography>
         <TextField
           type="email"
@@ -60,14 +83,37 @@ const Login: React.FC = () => {
           size="small"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          sx={{
+            boxShadow: `0px 4px 4px ${theme.palette.primary.light}`,
+          }}
         />
         <TextField
-          type="password"
+          type={showPassword ? "text" : "password"}
           label="Contraseña"
           variant="outlined"
           size="small"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          sx={{
+            boxShadow: `0px 4px 4px ${theme.palette.primary.light}`,
+          }}
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    onMouseUp={handleMouseUpPassword}
+                    edge="end"
+                    sx={{ color: "primary.contrastText" }}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+          }}
         />
         {errorMsg && <div style={{ color: "red" }}>{errorMsg}</div>}
       </Stack>
@@ -78,15 +124,16 @@ const Login: React.FC = () => {
         sx={{
           width: 120,
           color: "primary.contrastText",
-          borderRadius: 0,
+          borderRadius: 3,
           border: `2px solid ${theme.palette.primary.dark}`,
           textTransform: "inherit",
+          boxShadow: `0px 4px 4px rgba(255, 0, 0, 0.4)`,
           "& .MuiButton-loadingIndicator": {
             color: "primary.contrastText",
           },
         }}
       >
-        Iniciar sesión
+        Ingresar
       </Button>
     </Stack>
   );
