@@ -12,8 +12,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
-import useUserSession from "../hooks/useUserSession";
-import { auth } from "../firebase/connection";
+import { useUserContext } from "../hooks/useUserContext";
+import { logout } from "../services/authentication";
 
 /**
  * Component for the main menu of the application.
@@ -22,7 +22,7 @@ import { auth } from "../firebase/connection";
  */
 const MainMenu = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const { user } = useUserSession();
+  const { user, gym } = useUserContext();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -30,6 +30,10 @@ const MainMenu = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    logout()
   };
 
   return (
@@ -83,6 +87,13 @@ const MainMenu = () => {
               fontWeight="bold"
               sx={{ fontFamily: "Instrument Sans, sans-serif" }}
             >
+              {gym?.name}
+            </Typography>
+            <Typography
+              variant="body2"
+              fontWeight="bold"
+              sx={{ fontFamily: "Instrument Sans, sans-serif" }}
+            >
               {user?.email}
             </Typography>
           </Stack>
@@ -100,7 +111,7 @@ const MainMenu = () => {
           </ListItemIcon>
           Perfil
         </MenuItem>
-        <MenuItem onClick={() => auth.signOut()}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <LogoutIcon sx={{ color: "primary.contrastText" }} />
           </ListItemIcon>

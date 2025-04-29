@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/connection";
 import {
   Button,
   IconButton,
@@ -13,6 +11,7 @@ import theme from "../styles/theme";
 import Logo from "../components/Logo";
 import { useNavigate } from "react-router";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { login } from "../services/authentication";
 
 /**
  * Login page
@@ -24,6 +23,8 @@ const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -39,20 +40,13 @@ const Login: React.FC = () => {
     event.preventDefault();
   };
 
-  const navigate = useNavigate();
-
-  const login = async () => {
+  const handleLogin = () => {
     setLoading(true);
     setErrorMsg("");
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      setErrorMsg(error.message);
-    } finally {
-      setLoading(false);
-    }
+    login(email, password)
+      .then(() => navigate("/"))
+      .catch((error) => setErrorMsg(error))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -118,7 +112,7 @@ const Login: React.FC = () => {
         {errorMsg && <div style={{ color: "red" }}>{errorMsg}</div>}
       </Stack>
       <Button
-        onClick={login}
+        onClick={handleLogin}
         size="small"
         loading={loading}
         sx={{

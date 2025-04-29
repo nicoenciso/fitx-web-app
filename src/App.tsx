@@ -2,6 +2,7 @@ import { BrowserRouter } from "react-router";
 import AppRoutes from "./router/routes";
 import "./assets/fonts/fonts.css";
 import { CustomerProvider } from "./contexts/CustomersContext";
+import { UserProvider } from "./contexts/UserContext";
 
 /**
  * Main application component
@@ -16,9 +17,11 @@ import { CustomerProvider } from "./contexts/CustomersContext";
 const App = () => {
   return (
     <BrowserRouter>
-      <CustomerProvider>
-        <AppRoutes />
-      </CustomerProvider>
+      <UserProvider>
+        <CustomerProvider>
+          <AppRoutes />
+        </CustomerProvider>
+      </UserProvider>
     </BrowserRouter>
   );
 };

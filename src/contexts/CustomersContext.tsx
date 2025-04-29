@@ -1,8 +1,7 @@
 import { createContext, useState, ReactNode, useEffect } from "react";
-import { db } from "../firebase/connection";
-import { collection, getDocs } from "firebase/firestore";
 import Customer from "../interfaces/Customer";
-import useUserSession from "../hooks/useUserSession";
+import { useUserContext } from "../hooks/useUserContext";
+import { getCustomers } from "../services/customers";
 
 interface CustomerContextType {
   customers: Customer[];
@@ -18,17 +17,13 @@ const CustomerContext = createContext<CustomerContextType | undefined>(
 
 export const CustomerProvider = ({ children }: { children: ReactNode }) => {
   const [customers, setCustomers] = useState<Customer[] | []>([]);
-  const { user } = useUserSession();
+  const { user, gym } = useUserContext();
 
   useEffect(() => {
-    const fetCustomers = async () => {
-      const querySnapshot = await getDocs(collection(db, "customers"));
-      setCustomers(
-        querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-      );
-    };
-    fetCustomers();
-  }, [user]);
+    if (gym) {
+      getCustomers(gym?.id).then((res) => setCustomers(res));
+    }
+  }, [user, gym]);
 
   const registeredCustomers = customers.length;
   const activeCustomers = customers.filter(
