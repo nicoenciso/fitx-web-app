@@ -1,6 +1,6 @@
 import { Timestamp } from "firebase/firestore";
 
-interface Customer {
+export interface Customer {
   id: string;
   active?: boolean;
   cost?: number;
@@ -13,4 +13,12 @@ interface Customer {
   paymentDate?: Timestamp;
 }
 
-export default Customer;
+export interface CreateCustomerData {
+  names: string;
+  lastNames: string;
+  cost: number;
+  durationDays: number;
+  email: string;
+  password: string;
+  gymId: string;
+}

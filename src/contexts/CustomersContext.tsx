@@ -1,11 +1,12 @@
 import { createContext, useState, ReactNode, useEffect } from "react";
-import Customer from "../interfaces/Customer";
+import { Customer } from "../interfaces/Customer";
 import { useUserContext } from "../hooks/useUserContext";
 import { getCustomers } from "../services/customers";
 
 interface CustomerContextType {
   customers: Customer[];
   setCustomers: (customers: Customer[]) => void;
+  fetchCustomers: () => void;
   registeredCustomers: number;
   activeCustomers: number;
   delinquentCustomers: number;
@@ -19,10 +20,15 @@ export const CustomerProvider = ({ children }: { children: ReactNode }) => {
   const [customers, setCustomers] = useState<Customer[] | []>([]);
   const { user, gym } = useUserContext();
 
-  useEffect(() => {
+  const fetchCustomers = () => {
     if (gym) {
       getCustomers(gym?.id).then((res) => setCustomers(res));
     }
+  };
+
+  useEffect(() => {
+    fetchCustomers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, gym]);
 
   const registeredCustomers = customers.length;
@@ -37,6 +43,7 @@ export const CustomerProvider = ({ children }: { children: ReactNode }) => {
     <CustomerContext.Provider
       value={{
         customers,
+        fetchCustomers,
         setCustomers,
         registeredCustomers,
         activeCustomers,

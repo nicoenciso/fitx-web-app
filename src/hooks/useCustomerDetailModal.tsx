@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Customer from "../interfaces/Customer";
+import { Customer } from "../interfaces/Customer";
 
 const useCustomerDetailModal = () => {
   const [open, setOpen] = useState(false);

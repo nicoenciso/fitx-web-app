@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import theme from "../styles/theme";
-import Customer from "../interfaces/Customer";
 import CustomerTitle from "./CustomerTitle";
+import { Customer } from "../interfaces/Customer";
 
 interface CustomerBadgeProps {
   customer: Customer

@@ -66,7 +66,14 @@ const Login: React.FC = () => {
           FITX
         </Typography>
       </Stack>
-      <Stack spacing={3}>
+      <Stack
+        spacing={3}
+        sx={{
+          "& .MuiInputBase-root": {
+            boxShadow: `0px 4px 4px ${theme.palette.primary.light}`,
+          },
+        }}
+      >
         <Typography variant="h5" fontWeight="bold" align="center">
           INICIAR SESIÓN
         </Typography>
@@ -77,9 +84,6 @@ const Login: React.FC = () => {
           size="small"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          sx={{
-            boxShadow: `0px 4px 4px ${theme.palette.primary.light}`,
-          }}
         />
         <TextField
           type={showPassword ? "text" : "password"}
@@ -88,9 +92,6 @@ const Login: React.FC = () => {
           size="small"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          sx={{
-            boxShadow: `0px 4px 4px ${theme.palette.primary.light}`,
-          }}
           slotProps={{
             input: {
               endAdornment: (

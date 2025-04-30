@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import greenCircle from "../assets/green-circle.svg";
 import redCircle from "../assets/red-circle.svg";
-import Customer from "../interfaces/Customer";
+import { Customer } from "../interfaces/Customer";
 
 const CustomerTitle = ({ customer }: { customer: Customer | null }) => {
   return (

@@ -28,7 +28,8 @@ const CustomersList = () => {
       <Stack
         justifyContent="start"
         alignItems="center"
-        sx={{ mt: 3, height: "70vh", overflowY: "auto" }}
+        spacing={2}
+        sx={{ mt: 3, height: "50vh", overflowY: "auto" }}
       >
         {filteredCustomers.map((customer) => (
           <CustomerBadge

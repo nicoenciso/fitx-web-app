@@ -1,0 +1,206 @@
+import React, { useState } from "react";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
+import theme from "../styles/theme";
+import { useUserContext } from "../hooks/useUserContext";
+import { createCustomer } from "../services/customers";
+import { useCustomerContext } from "../hooks/useCustomerContext";
+
+const CreateCustomerModal = () => {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { gym } = useUserContext();
+  const { fetchCustomers } = useCustomerContext();
+  const [form, setForm] = useState({
+    names: "",
+    lastNames: "",
+    cost: 0,
+    durationDays: 0,
+    email: "",
+    password: "",
+  });
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    if (gym) {
+      setLoading(true);
+      createCustomer({ ...form, gymId: gym.id })
+        .then(() => setLoading(false))
+        .finally(() => {
+          handleClose();
+          fetchCustomers();
+        });
+    }
+  };
+
+  return (
+    <>
+      <Button
+        onClick={handleClickOpen}
+        size="small"
+        startIcon={<PersonAddAlt1OutlinedIcon />}
+        sx={{
+          width: 120,
+          mx: "auto",
+          color: "primary.contrastText",
+          borderRadius: 3,
+          border: `2px solid ${theme.palette.primary.dark}`,
+          textTransform: "inherit",
+          boxShadow: `0px 4px 4px rgba(255, 0, 0, 0.4)`,
+          "& .MuiButton-loadingIndicator": {
+            color: "primary.contrastText",
+          },
+        }}
+      >
+        Añadir cliente
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        maxWidth="sm"
+        sx={{
+          "& .MuiPaper-root": {
+            background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+            borderRadius: 1,
+            border: `2px solid ${theme.palette.primary.dark}`,
+            boxShadow: 24,
+            p: 2,
+          },
+          "& .MuiTypography-root": {
+            color: theme.palette.primary.contrastText,
+          },
+        }}
+      >
+        <Typography variant="inherit" align="right">
+          <CloseOutlinedIcon
+            onClick={handleClose}
+            sx={{
+              width: { xs: 20, sm: 15 },
+              height: { xs: 20, sm: 15 },
+              position: "absolute",
+              right: 8,
+              top: 8,
+              bgcolor: theme.palette.primary.main,
+              cursor: "pointer",
+            }}
+          />
+        </Typography>
+        <DialogTitle>Crear nuevo cliente</DialogTitle>
+        <DialogContent>
+          <Stack
+            spacing={3}
+            sx={{
+              mt: 1,
+              "& .MuiInputBase-root": {
+                boxShadow: `0px 4px 4px ${theme.palette.primary.light}`,
+              },
+            }}
+          >
+            <TextField
+              label="Nombres"
+              variant="outlined"
+              size="small"
+              name="names"
+              value={form.names}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Apellidos"
+              variant="outlined"
+              size="small"
+              name="lastNames"
+              value={form.lastNames}
+              onChange={handleChange}
+            />
+            <TextField
+              label="costo"
+              variant="outlined"
+              size="small"
+              name="cost"
+              value={form.cost}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Duración"
+              variant="outlined"
+              size="small"
+              name="durationDays"
+              value={form.durationDays}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Correo electrónico"
+              variant="outlined"
+              size="small"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Contraseña"
+              variant="outlined"
+              size="small"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+            />
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleClose}
+            size="small"
+            sx={{
+              color: "primary.contrastText",
+              backgroundColor: "primary.dark",
+              borderRadius: 0,
+              border: `1px solid ${theme.palette.primary.contrastText}`,
+            }}
+          >
+            Cancelar
+          </Button>
+          <Button
+            onClick={handleSubmit}
+            loading={loading}
+            size="small"
+            sx={{
+              color: "primary.contrastText",
+              backgroundColor: "primary.main",
+              borderRadius: 0,
+              border: `1px solid ${theme.palette.primary.contrastText}`,
+              "& .MuiButton-loadingIndicator": {
+                color: "primary.contrastText",
+              },
+            }}
+          >
+            Confirmar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+};
+
+export default CreateCustomerModal;

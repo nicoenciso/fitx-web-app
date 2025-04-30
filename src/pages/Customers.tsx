@@ -1,5 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import CustomersList from "../components/CustomersList";
+import CreateCustomerModal from "../components/CreateCustomerModal";
 
 /**
  * Customers list page component
@@ -18,6 +19,7 @@ const Customers = () => {
         LISTA DE CLIENTES
       </Typography>
       <CustomersList />
+      <CreateCustomerModal />
     </Stack>
   );
 };

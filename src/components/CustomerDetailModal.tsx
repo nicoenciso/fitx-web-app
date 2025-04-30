@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import Customer from "../interfaces/Customer";
+import { Customer } from "../interfaces/Customer";
 import theme from "../styles/theme";
 import CustomerTitle from "./CustomerTitle";
 import { Stack } from "@mui/material";
@@ -38,9 +38,7 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
           borderRadius: 1,
           border: `2px solid ${theme.palette.primary.dark}`,
           boxShadow: 24,
-          px: 4,
-          pt: 1,
-          pb: 4,
+          p: 4,
           "& .MuiTypography-root": {
             color: theme.palette.primary.contrastText,
           },
@@ -52,6 +50,9 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
             sx={{
               width: { xs: 20, sm: 15 },
               height: { xs: 20, sm: 15 },
+              position: "absolute",
+              right: 8,
+              top: 8,
               bgcolor: theme.palette.primary.main,
               cursor: "pointer",
             }}
@@ -71,24 +72,24 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
           </Typography>
           <Typography variant="subtitle1">Costo: {data?.cost}</Typography>
           <Typography variant="subtitle1">Email: {data?.email}</Typography>
-          {data?.expirationDate && (
-            <Typography variant="subtitle1">
-              Vto:{" "}
-              {formatTimestamp(
-                data.expirationDate.seconds,
-                data.expirationDate.nanoseconds
-              )}
-            </Typography>
-          )}
-          {data?.paymentDate && (
-            <Typography variant="subtitle1">
-              Pago:{" "}
-              {formatTimestamp(
-                data.paymentDate.seconds,
-                data.paymentDate.nanoseconds
-              )}
-            </Typography>
-          )}
+          <Typography variant="subtitle1">
+            Vto:{" "}
+            {data?.expirationDate
+              ? formatTimestamp(
+                  data.expirationDate.seconds,
+                  data.expirationDate.nanoseconds
+                )
+              : "-"}
+          </Typography>
+          <Typography variant="subtitle1">
+            Pago:{" "}
+            {data?.paymentDate
+              ? formatTimestamp(
+                  data.paymentDate.seconds,
+                  data.paymentDate.nanoseconds
+                )
+              : "-"}
+          </Typography>
         </Stack>
       </Box>
     </Modal>
