@@ -11,7 +11,9 @@ import theme from "../styles/theme";
 import Logo from "../components/Logo";
 import { useNavigate } from "react-router";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { login } from "../services/authentication";
+import { toast } from "react-toastify";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/connection";
 
 /**
  * Login page
@@ -40,13 +42,19 @@ const Login: React.FC = () => {
     event.preventDefault();
   };
 
-  const handleLogin = () => {
-    setLoading(true);
-    setErrorMsg("");
-    login(email, password)
-      .then(() => navigate("/"))
-      .catch((error) => setErrorMsg(error))
-      .finally(() => setLoading(false));
+  const handleLogin = async () => {
+    try {  
+      setLoading(true);
+      setErrorMsg("");
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      setErrorMsg(error.message);
+      toast.error("Error al iniciar sesión");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

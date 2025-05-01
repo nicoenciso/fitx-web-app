@@ -1,4 +1,3 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, firebaseConfig } from "../firebase/connection";
 
 import { initializeApp, deleteApp } from "firebase/app";
@@ -29,26 +28,12 @@ const createUserWithoutAffectingSession = async (
   }
 };
 
-const login = async (email: string, password: string) => {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      return error.message;
-    }
-    return "Error inesperado.";
-  }
-};
-
 const logout = async () => {
   try {
     await auth.signOut();
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      return error.message;
-    }
-    return "Error inesperado.";
+  } catch (error) {
+    console.error("Error al cerrar sesión", error);
   }
 };
 
-export { createUserWithoutAffectingSession, login, logout };
+export { createUserWithoutAffectingSession, logout };

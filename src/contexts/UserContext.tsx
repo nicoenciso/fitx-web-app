@@ -32,7 +32,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     const unsub = onAuthStateChanged(auth, async (currentUser) => {
       try {
-        console.log(currentUser)
         if (currentUser) {
           const { uid, displayName } = currentUser;
 
