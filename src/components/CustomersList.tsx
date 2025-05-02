@@ -38,11 +38,13 @@ const CustomersList = () => {
             customer={customer}
           />
         ))}
-        <CustomerDetailModal
-          open={open}
-          onClose={handleClose}
-          data={customerDetail}
-        />
+        {customerDetail && (
+          <CustomerDetailModal
+            open={open}
+            onClose={handleClose}
+            data={customerDetail}
+          />
+        )}
       </Stack>
     </>
   );

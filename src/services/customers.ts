@@ -1,15 +1,16 @@
 import {
-  addDoc,
   collection,
+  deleteDoc,
   doc,
   getDocs,
   query,
+  setDoc,
   updateDoc,
   where,
 } from "firebase/firestore";
 import { db } from "../firebase/connection";
 import { toast } from "react-toastify";
-import { CreateCustomerData, Customer } from "../interfaces/Customer";
+import { CreateCustomerData } from "../interfaces/Customer";
 import { createUserWithoutAffectingSession } from "./authentication";
 
 const getCustomers = async (gymId: string) => {
@@ -22,10 +23,18 @@ const getCustomers = async (gymId: string) => {
 
 const createCustomer = async (data: CreateCustomerData) => {
   try {
-    createUserWithoutAffectingSession(data.email, data.password);
-    await addDoc(collection(db, "customers"), {
+    const uid = await createUserWithoutAffectingSession(
+      data.email,
+      data.password
+    );
+    await setDoc(doc(db, "customers", uid), {
       active: false,
-      ...data,
+      names: data.names,
+      lastNames: data.lastNames,
+      cost: data.cost,
+      durationDays: data.durationDays,
+      email: data.email,
+      gymId: data.gymId,
       expirationDate: null,
       paymentDate: null,
     });
@@ -36,10 +45,11 @@ const createCustomer = async (data: CreateCustomerData) => {
   }
 };
 
-const editCustomer = async (data: Customer) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const editCustomer = async (id: string, data: any) => {
   try {
-    const customerRef = doc(db, "customers", data.id);
-    await updateDoc(customerRef, { ...data });
+    const customerRef = doc(db, "customers", id);
+    await updateDoc(customerRef, data);
     toast.success("Usuario editado con éxito");
   } catch (error) {
     console.error(error);
@@ -47,4 +57,16 @@ const editCustomer = async (data: Customer) => {
   }
 };
 
-export { getCustomers, createCustomer, editCustomer };
+const deleteCustomer = async (customerId: string) => {
+  try {
+    const customerRef = doc(db, "customers", customerId);
+    await deleteDoc(customerRef);
+    toast.success("Cliente eliminado correctamente");
+  } catch (error) {
+    console.error(error);
+    toast.error("Error al eliminar cliente");
+    throw error;
+  }
+};
+
+export { getCustomers, createCustomer, editCustomer, deleteCustomer };

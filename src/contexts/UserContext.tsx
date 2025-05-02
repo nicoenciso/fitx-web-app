@@ -1,7 +1,12 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import Gym from "../interfaces/Gym";
 import User from "../interfaces/User";
-import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
 import { db } from "../firebase/connection";
 import {
   collection,
@@ -28,7 +33,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const auth = getAuth();
     setPersistence(auth, browserLocalPersistence);
-    setLoading(true); // Asegúrate de que el estado de carga sea verdadero al inicio
+    setLoading(true);
 
     const unsub = onAuthStateChanged(auth, async (currentUser) => {
       try {
@@ -66,7 +71,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         setUser(null);
         setGym(null);
       } finally {
-        setLoading(false); // Asegúrate de que el estado de carga se actualice al final
+        setLoading(false);
       }
     });
 
