@@ -79,6 +79,7 @@ const CreateCustomerModal = () => {
         open={open}
         onClose={handleClose}
         fullWidth
+        disableEnforceFocus
         maxWidth="sm"
         sx={{
           "& .MuiPaper-root": {

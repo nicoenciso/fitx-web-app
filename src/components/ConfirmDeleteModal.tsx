@@ -51,6 +51,7 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = (props) => {
       {...other}
       fullWidth
       maxWidth="xs"
+      disableEnforceFocus
       sx={{
         "& .MuiPaper-root": {
           background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,

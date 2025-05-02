@@ -93,6 +93,7 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
       open={open}
       onClose={onClose}
       fullWidth
+      disableEnforceFocus
       maxWidth="xs"
       sx={{
         "& .MuiPaper-root": {
