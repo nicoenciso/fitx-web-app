@@ -97,8 +97,8 @@ const CreateCustomerModal = () => {
           <CloseOutlinedIcon
             onClick={handleClose}
             sx={{
-              width: { xs: 20, sm: 15 },
-              height: { xs: 20, sm: 15 },
+              width: 20,
+              height: 20,
               position: "absolute",
               right: 8,
               top: 8,

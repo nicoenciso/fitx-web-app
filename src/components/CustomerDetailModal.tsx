@@ -19,6 +19,7 @@ import greenCircle from "../assets/green-circle.svg";
 import redCircle from "../assets/red-circle.svg";
 import { editCustomer } from "../services/customers";
 import { useCustomerContext } from "../hooks/useCustomerContext";
+import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 
@@ -68,7 +69,6 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
   };
 
   const handleSave = () => {
-    console.log(form);
     editCustomer(data.id, { ...form }).finally(() => {
       fetchCustomers();
     });
@@ -105,14 +105,17 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
         "& .MuiTypography-root": {
           color: theme.palette.primary.contrastText,
         },
+        "& .MuiInputBase-root": {
+          boxShadow: `0px 4px 4px ${theme.palette.primary.light}`,
+        },
       }}
     >
       <Typography variant="inherit" align="right">
         <CloseOutlinedIcon
           onClick={handleClose}
           sx={{
-            width: { xs: 20, sm: 15 },
-            height: { xs: 20, sm: 15 },
+            width: 20,
+            height: 20,
             position: "absolute",
             right: 8,
             top: 8,
@@ -137,7 +140,6 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
             <Stack direction="row" spacing={1}>
               <TextField
                 hiddenLabel
-                defaultValue={`${form.names}`.toUpperCase()}
                 variant="outlined"
                 size="small"
                 name="names"
@@ -147,7 +149,6 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
               />
               <TextField
                 hiddenLabel
-                defaultValue={`${form.lastNames}`.toUpperCase()}
                 variant="outlined"
                 size="small"
                 name="lastNames"
@@ -194,7 +195,6 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
             {edit ? (
               <TextField
                 hiddenLabel
-                defaultValue={form.cost}
                 variant="outlined"
                 size="small"
                 name="cost"
@@ -215,7 +215,6 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
             {edit ? (
               <TextField
                 hiddenLabel
-                defaultValue={form.durationDays}
                 variant="outlined"
                 size="small"
                 name="durationDays"
@@ -265,6 +264,26 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
         </Stack>
       </DialogContent>
       <DialogActions>
+        {!edit && (
+          <Button
+            onClick={handleConfirm}
+            startIcon={<PaidOutlinedIcon />}
+            size="small"
+            sx={{
+              color: "primary.contrastText",
+              background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+              borderRadius: 0,
+              mr: 3,
+              px: 1,
+              border: `1px solid ${theme.palette.primary.contrastText}`,
+              "& .MuiButton-loadingIndicator": {
+                color: "primary.contrastText",
+              },
+            }}
+          >
+            Pagos
+          </Button>
+        )}
         {edit ? (
           <Button
             onClick={handleEdit}
