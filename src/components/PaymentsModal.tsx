@@ -11,6 +11,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import theme from "../styles/theme";
 import NewPaymentModal from "./NewPaymentModal";
+import PaymentsTable from "./PaymentsTable";
 
 interface PaymentsModalProps {
   id: string;
@@ -18,7 +19,7 @@ interface PaymentsModalProps {
   onClose: () => void;
 }
 
-const PaymentsModal: React.FC<PaymentsModalProps> = ({ open, onClose }) => {
+const PaymentsModal: React.FC<PaymentsModalProps> = ({ id, open, onClose }) => {
   const [openNewPayment, setOpenNewPayment] = useState(false);
 
   const handleOpenNewPayment = () => {
@@ -63,7 +64,7 @@ const PaymentsModal: React.FC<PaymentsModalProps> = ({ open, onClose }) => {
       </Typography>
       <DialogTitle>PAGOS</DialogTitle>
       <DialogContent>
-        <Typography>Aqui va la lista de pagos</Typography>
+        <PaymentsTable customerId={id} />
       </DialogContent>
       <DialogActions>
         <Button
