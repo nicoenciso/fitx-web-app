@@ -22,8 +22,8 @@ const theme = createTheme({
     fontFamily: "Oswald, sans-serif",
   },
   components: {
-    MuiTextField: textField
-  }
+    MuiTextField: textField,
+  },
 });
 
 export default theme;

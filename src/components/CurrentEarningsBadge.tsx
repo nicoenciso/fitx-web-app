@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import DataBadge from "./DataBadge";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import { usePaymentsContext } from "../hooks/usePaymentsContext";
 
 /**
  * CurrentEarningsBadge component
@@ -8,6 +9,7 @@ import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlin
  * @returns {JSX.Element}
  */
 const CurrentEarningsBadge = () => {
+  const { totalPayments } = usePaymentsContext();
   return (
     <DataBadge
       variant="special"
@@ -24,7 +26,7 @@ const CurrentEarningsBadge = () => {
         fontWeight="bold"
         sx={{ fontFamily: "Instrument Sans, sans-serif" }}
       >
-        195.000
+        {totalPayments}
       </Typography>
     </DataBadge>
   );

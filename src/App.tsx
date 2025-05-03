@@ -4,6 +4,7 @@ import "./assets/fonts/fonts.css";
 import { CustomerProvider } from "./contexts/CustomersContext";
 import { UserProvider } from "./contexts/UserContext";
 import { ToastContainer } from "react-toastify";
+import { PaymentsProvider } from "./contexts/PaymentsContext";
 
 /**
  * Main application component
@@ -20,8 +21,10 @@ const App = () => {
     <BrowserRouter>
       <UserProvider>
         <CustomerProvider>
-          <AppRoutes />
-          <ToastContainer theme="dark" />
+          <PaymentsProvider>
+            <AppRoutes />
+            <ToastContainer theme="dark" />
+          </PaymentsProvider>
         </CustomerProvider>
       </UserProvider>
     </BrowserRouter>

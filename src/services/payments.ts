@@ -5,21 +5,43 @@ import {
   doc,
   Timestamp,
   getDoc,
+  query,
+  where,
+  getDocs,
 } from "firebase/firestore";
 import { db } from "../firebase/connection";
 import { PaymentData } from "../interfaces/Payment";
 
-export const addPaymentToCustomer = async ({
+const getPaymentsByGym = async (gymId: string) => {
+  const paymentsRef = collection(db, "payments");
+  const q = query(paymentsRef, where("gymId", "==", gymId));
+  const snapshot = await getDocs(q);
+  const payments = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return payments;
+};
+
+const getPaymentsByCustomer = async (customerId: string) => {
+  const paymentsRef = collection(db, "payments");
+  const q = query(paymentsRef, where("customerId", "==", customerId));
+  const snapshot = await getDocs(q);
+  const payments = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return payments;
+};
+
+const addPaymentToCustomer = async ({
   customerId,
   amount,
   date,
 }: PaymentData) => {
   const now = date || new Date();
-  const period = `${String(now.getMonth() + 1).padStart(2, "0")}-${now.getFullYear()}`;
+  const period = `${String(now.getMonth() + 1).padStart(
+    2,
+    "0"
+  )}-${now.getFullYear()}`;
   const timestamp = Timestamp.fromDate(now);
 
-  const customerRef = doc(db, "customers", customerId);
-  const customerSnap = await getDoc(customerRef);
+  const paymentsRef = doc(db, "customers", customerId);
+  const customerSnap = await getDoc(paymentsRef);
 
   if (!customerSnap.exists()) {
     throw new Error("El cliente no existe");
@@ -40,8 +62,10 @@ export const addPaymentToCustomer = async ({
   });
 
   // Update the customer fields
-  await updateDoc(customerRef, {
+  await updateDoc(paymentsRef, {
     paymentDate: timestamp,
     expirationDate: Timestamp.fromDate(expiration),
   });
 };
+
+export { getPaymentsByGym, getPaymentsByCustomer, addPaymentToCustomer };

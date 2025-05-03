@@ -19,9 +19,10 @@ import greenCircle from "../assets/green-circle.svg";
 import redCircle from "../assets/red-circle.svg";
 import { editCustomer } from "../services/customers";
 import { useCustomerContext } from "../hooks/useCustomerContext";
-import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+import PriceChangeOutlinedIcon from "@mui/icons-material/PriceChangeOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import PaymentsModal from "./PaymentsModal";
 
 interface CustomerDetailModalProps {
   open: boolean;
@@ -38,6 +39,7 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
 }) => {
   const [edit, setEdit] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
+  const [openPayments, setOpenPayments] = useState(false);
   const [form, setForm] = useState({
     active: data.active,
     names: data.names,
@@ -59,6 +61,10 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handlePayments = () => {
+    setOpenPayments((prev) => !prev);
   };
 
   const handleEdit = () => {
@@ -267,8 +273,8 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
       <DialogActions>
         {!edit && (
           <Button
-            onClick={handleConfirm}
-            startIcon={<PaidOutlinedIcon />}
+            onClick={handlePayments}
+            startIcon={<PriceChangeOutlinedIcon />}
             size="small"
             sx={{
               color: "primary.contrastText",
@@ -347,15 +353,18 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
           </Button>
         )}
       </DialogActions>
-      {data.id && (
-        <ConfirmDeleteModal
-          id={data.id}
-          keepMounted
-          open={openConfirm}
-          onClose={handleCloseConfirm}
-          handleClose={handleClose}
-        />
-      )}
+      <ConfirmDeleteModal
+        id={data.id}
+        keepMounted
+        open={openConfirm}
+        onClose={handleCloseConfirm}
+        handleClose={handleClose}
+      />
+      <PaymentsModal
+        id={data.id}
+        open={openPayments}
+        onClose={handlePayments}
+      />
     </Dialog>
   );
 };
