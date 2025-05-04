@@ -11,6 +11,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase/connection";
 import { PaymentData } from "../interfaces/Payment";
+import dayjs from "dayjs";
+import { monthNames } from "../utils/MonthNames";
 
 const getPaymentsByGym = async (gymId: string) => {
   const paymentsRef = collection(db, "payments");
@@ -34,10 +36,9 @@ const addPaymentToCustomer = async ({
   date,
 }: PaymentData) => {
   const now = date || new Date();
-  const period = `${String(now.getMonth() + 1).padStart(
-    2,
-    "0"
-  )}-${now.getFullYear()}`;
+
+  // Convert the month number to month name
+  const period = `${monthNames[now.getMonth()]}-${now.getFullYear()}`;
   const timestamp = Timestamp.fromDate(now);
 
   const paymentsRef = doc(db, "customers", customerId);
@@ -50,8 +51,8 @@ const addPaymentToCustomer = async ({
   const customerData = customerSnap.data();
   const { durationDays, gymId } = customerData;
 
-  const expiration = new Date(now);
-  expiration.setDate(expiration.getDate() + durationDays);
+  // Calc expiration date with dayjs
+  const expiration = dayjs(now).add(durationDays, "day").toDate();
 
   await addDoc(collection(db, "payments"), {
     customerId,
@@ -61,7 +62,7 @@ const addPaymentToCustomer = async ({
     timestamp,
   });
 
-  // Update the customer fields
+  // Update customer data
   await updateDoc(paymentsRef, {
     paymentDate: timestamp,
     expirationDate: Timestamp.fromDate(expiration),

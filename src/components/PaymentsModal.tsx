@@ -12,14 +12,19 @@ import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import theme from "../styles/theme";
 import NewPaymentModal from "./NewPaymentModal";
 import PaymentsTable from "./PaymentsTable";
+import { Customer } from "../interfaces/Customer";
 
 interface PaymentsModalProps {
-  id: string;
+  customer: Customer;
   open: boolean;
   onClose: () => void;
 }
 
-const PaymentsModal: React.FC<PaymentsModalProps> = ({ id, open, onClose }) => {
+const PaymentsModal: React.FC<PaymentsModalProps> = ({
+  customer,
+  open,
+  onClose,
+}) => {
   const [openNewPayment, setOpenNewPayment] = useState(false);
 
   const handleOpenNewPayment = () => {
@@ -64,7 +69,7 @@ const PaymentsModal: React.FC<PaymentsModalProps> = ({ id, open, onClose }) => {
       </Typography>
       <DialogTitle>PAGOS</DialogTitle>
       <DialogContent>
-        <PaymentsTable customerId={id} />
+        <PaymentsTable customerId={customer.id} />
       </DialogContent>
       <DialogActions>
         <Button
@@ -86,7 +91,11 @@ const PaymentsModal: React.FC<PaymentsModalProps> = ({ id, open, onClose }) => {
           Añadir Pago
         </Button>
       </DialogActions>
-      <NewPaymentModal open={openNewPayment} onClose={handleOpenNewPayment} />
+      <NewPaymentModal
+        customer={customer}
+        open={openNewPayment}
+        onClose={handleOpenNewPayment}
+      />
     </Dialog>
   );
 };

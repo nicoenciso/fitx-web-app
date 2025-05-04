@@ -4,7 +4,6 @@ import DataBadge from "./DataBadge";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import MonthSelect from "./MonthSelect";
 import { usePaymentsContext } from "../hooks/usePaymentsContext";
-import { useUserContext } from "../hooks/useUserContext";
 import useMonthYear from "../hooks/useMonthYear";
 import { MenuItem } from "@mui/material";
 
@@ -15,23 +14,23 @@ import { MenuItem } from "@mui/material";
  */
 const MonthlyIncome = () => {
   const { payments } = usePaymentsContext();
-  const { gym } = useUserContext();
-  const { getEarliestMonthYear, getUniqueMonths, getChartData } =
+  const { getUniqueMonths, getChartData } =
     useMonthYear();
 
-  const filtered = payments.filter((p) => p.gymId === gym?.id);
   const [selectedMonth, setSelectedMonth] = useState<string>("");
 
   useEffect(() => {
     if (!selectedMonth) {
-      const earliest = getEarliestMonthYear(filtered);
-      if (earliest) setSelectedMonth(earliest);
+      const months = getUniqueMonths(payments);
+      if (months.length > 0) {
+        setSelectedMonth(months[months.length - 1]);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filtered]);
+  }, [payments]);
 
-  const months = getUniqueMonths(filtered);
-  const chartData = selectedMonth ? getChartData(filtered, selectedMonth) : [];
+  const months = getUniqueMonths(payments);
+  const chartData = selectedMonth ? getChartData(payments, selectedMonth) : [];
 
   return (
     <DataBadge
@@ -55,18 +54,21 @@ const MonthlyIncome = () => {
         ))}
       </MonthSelect>
       <LineChart
-        xAxis={[{ data: chartData.map((d) => d.month || "") }]}
-        yAxis={[
+        xAxis={[
           {
-            min: 0,
-            max: 1000000,
+            scaleType: "point",
+            data: chartData.map((d) => d.month || ""),
             tickLabelStyle: { fill: "#fff" },
             tickFontSize: 10,
           },
         ]}
-        series={[
-          { data: chartData.map((d) => d.total || 0) },
+        yAxis={[
+          {
+            tickLabelStyle: { fill: "#fff" },
+            tickFontSize: 10,
+          },
         ]}
+        series={[{ data: chartData.map((d) => d.total || 0) }]}
         sx={{
           "& .MuiChartsAxis-line": {
             stroke: "#fff",

@@ -361,7 +361,7 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
         handleClose={handleClose}
       />
       <PaymentsModal
-        id={data.id}
+        customer={data}
         open={openPayments}
         onClose={handlePayments}
       />

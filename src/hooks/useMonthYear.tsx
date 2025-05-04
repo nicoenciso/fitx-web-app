@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { Payment } from "../interfaces/Payment";
+import { monthNames } from "../utils/MonthNames";
 
 const useMonthYear = () => {
   const getEarliestMonthYear = (payments: Payment[]): string | null => {
@@ -16,15 +17,27 @@ const useMonthYear = () => {
         .map((p) => p.period)
         .filter((period): period is string => !!period)
     );
-    return Array.from(set).sort((a, b) => a.localeCompare(b));
+    const result = Array.from(set).sort((a, b) => a.localeCompare(b));
+    return result
   };
 
   const getLastSixMonths = (fromMonthYear: string): string[] => {
-    const [month, year] = fromMonthYear.split("-").map(Number);
-    const start = dayjs(`${year}-${month}-01`);
-    return Array.from({ length: 6 }, (_, i) =>
-      start.subtract(5 - i, "month").format("MM-YYYY")
-    );
+    // Dividir el formato "Mayo-2025" en mes y año
+    const [monthName, year] = fromMonthYear.split("-");
+    const monthIndex = monthNames.findIndex((name) => name.toLowerCase() === monthName.toLowerCase());
+
+    if (monthIndex === -1) {
+      throw new Error(`Mes inválido: ${monthName}`);
+    }
+
+    // Crear la fecha inicial en formato "YYYY-MM-DD"
+    const start = dayjs(`${year}-${monthIndex + 1}-01`); // monthIndex + 1 porque los meses en dayjs son 1-based
+
+    return Array.from({ length: 6 }, (_, i) => {
+      const date = start.subtract(5 - i, "month");
+      const monthName = monthNames[date.month()]; // Obtener el nombre del mes
+      return `${monthName}-${date.year()}`; // Formatear como Mes-Año
+    });
   };
 
   const getChartData = (payments: Payment[], selectedMonth: string) => {

@@ -10,6 +10,7 @@ interface PaymentsContextType {
     payments: Payment[],
     targetMonthYear: string
   ) => number;
+  fetchPayments: () => void;
 }
 
 const PaymentsContext = createContext<PaymentsContextType | undefined>(
@@ -51,6 +52,7 @@ export const PaymentsProvider = ({ children }: { children: ReactNode }) => {
         payments,
         totalPayments,
         calculateMonthlyPayments,
+        fetchPayments,
       }}
     >
       {children}

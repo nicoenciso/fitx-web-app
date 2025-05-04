@@ -10,18 +10,22 @@ import {
 } from "@mui/material";
 import { getPaymentsByCustomer } from "../services/payments";
 import { Payment } from "../interfaces/Payment";
+import { usePaymentsContext } from "../hooks/usePaymentsContext";
 
 interface PymentsTableProps {
   customerId: string;
 }
 
 const PaymentsTable: React.FC<PymentsTableProps> = ({ customerId }) => {
-  const [payments, setPayments] = useState<Payment[] | []>([]);
+  const [paymentsByCustomer, setPaymentsByCustomer] = useState<Payment[] | []>(
+    []
+  );
+  const { payments } = usePaymentsContext();
 
   useEffect(() => {
-    getPaymentsByCustomer(customerId).then((res) => setPayments(res));
+    getPaymentsByCustomer(customerId).then((res) => setPaymentsByCustomer(res));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [payments]);
 
   return (
     <TableContainer
@@ -32,7 +36,7 @@ const PaymentsTable: React.FC<PymentsTableProps> = ({ customerId }) => {
       }}
     >
       <Table sx={{ minWidth: 200 }} aria-label="simple table">
-        {payments.length == 0 && (
+        {paymentsByCustomer.length == 0 && (
           <caption style={{ color: "#fff" }}>
             No se ha registrado ningún pago aún.
           </caption>
@@ -44,8 +48,8 @@ const PaymentsTable: React.FC<PymentsTableProps> = ({ customerId }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {payments.length > 0 &&
-            payments.map((payment) => (
+          {paymentsByCustomer.length > 0 &&
+            paymentsByCustomer.map((payment) => (
               <TableRow
                 key={payment.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
