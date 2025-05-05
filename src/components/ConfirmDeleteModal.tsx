@@ -11,6 +11,9 @@ import theme from "../styles/theme";
 import { deleteCustomer } from "../services/customers";
 import { useCustomerContext } from "../hooks/useCustomerContext";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { useUserContext } from "../hooks/useUserContext";
+import { useOwnersGymContext } from "../hooks/useOwnersGymContext";
+import { deleteOwner } from "../services/owners";
 
 interface ConfirmDeleteModalProps {
   id: string;
@@ -29,6 +32,8 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = (props) => {
   const { onClose, handleClose, id, open, ...other } = props;
   const [loading, setLoading] = useState(false);
   const { fetchCustomers } = useCustomerContext();
+  const { fetchOwners } = useOwnersGymContext();
+  const { user } = useUserContext();
 
   const handleCancel = () => {
     onClose();
@@ -36,13 +41,24 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = (props) => {
 
   const handleOk = () => {
     setLoading(true);
-    deleteCustomer(id)
-      .then(() => setLoading(false))
-      .finally(() => {
-        onClose();
-        handleClose();
-        fetchCustomers();
-      });
+    if (user?.role === "ownergym") {
+      deleteCustomer(id)
+        .then(() => setLoading(false))
+        .finally(() => {
+          onClose();
+          handleClose();
+          fetchCustomers();
+        });
+    }
+    if (user?.role === "superadmin") {
+      deleteOwner(id)
+        .then(() => setLoading(false))
+        .finally(() => {
+          onClose();
+          handleClose();
+          fetchOwners();
+        });
+    }
   };
 
   return (

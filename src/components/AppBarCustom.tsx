@@ -3,17 +3,19 @@ import Logo from "./Logo";
 import MainMenu from "./MainMenu";
 import DrawerCustom from "./DrawerCustom";
 import { useNavigate } from "react-router";
+import { useUserContext } from "../hooks/useUserContext";
 
 /**
  * Component for the application AppBar.
  * @returns {JSX.Element}
  */
 const AppBarCustom = () => {
+  const { user } = useUserContext();
   const navigate = useNavigate();
   return (
     <AppBar position="static" sx={{ bgcolor: "primary.main" }}>
       <Toolbar>
-        <DrawerCustom />
+        {user?.role === "ownergym" && <DrawerCustom />}
         <Typography
           onClick={() => navigate("/")}
           display="flex"

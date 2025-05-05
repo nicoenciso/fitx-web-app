@@ -33,7 +33,7 @@ const MainMenu = () => {
   };
 
   const handleLogout = () => {
-    logout()
+    logout();
   };
 
   return (
@@ -87,7 +87,7 @@ const MainMenu = () => {
               fontWeight="bold"
               sx={{ fontFamily: "Instrument Sans, sans-serif" }}
             >
-              {gym?.name}
+              {user?.role === "superadmin" ? "SUPERADMIN" : gym?.name}
             </Typography>
             <Typography
               variant="body2"

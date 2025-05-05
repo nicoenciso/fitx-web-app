@@ -5,6 +5,7 @@ import { CustomerProvider } from "./contexts/CustomersContext";
 import { UserProvider } from "./contexts/UserContext";
 import { ToastContainer } from "react-toastify";
 import { PaymentsProvider } from "./contexts/PaymentsContext";
+import { OwnersGymProvider } from "./contexts/OwnersGymContext";
 
 /**
  * Main application component
@@ -20,12 +21,14 @@ const App = () => {
   return (
     <BrowserRouter>
       <UserProvider>
-        <CustomerProvider>
-          <PaymentsProvider>
-            <AppRoutes />
-            <ToastContainer theme="dark" />
-          </PaymentsProvider>
-        </CustomerProvider>
+        <OwnersGymProvider>
+          <CustomerProvider>
+            <PaymentsProvider>
+              <AppRoutes />
+              <ToastContainer theme="dark" />
+            </PaymentsProvider>
+          </CustomerProvider>
+        </OwnersGymProvider>
       </UserProvider>
     </BrowserRouter>
   );
