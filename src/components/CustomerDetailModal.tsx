@@ -60,7 +60,11 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value, type } = e.target;
+    setForm({
+      ...form,
+      [name]: type === "number" ? parseFloat(value) : value, // Convierte a número si el tipo es "number"
+    });
   };
 
   const handlePayments = () => {
@@ -198,9 +202,10 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
             alignItems="center"
             gap={1}
           >
-            Costo:{" "}
+            Valor membresía:{" "}
             {edit ? (
               <TextField
+                type="number"
                 hiddenLabel
                 variant="outlined"
                 size="small"
@@ -221,6 +226,7 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
             Duración:{" "}
             {edit ? (
               <TextField
+                type="number"
                 hiddenLabel
                 variant="outlined"
                 size="small"
@@ -230,7 +236,7 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
               />
             ) : (
               form.durationDays
-            )}
+            )} días
           </Typography>
           <Typography
             variant="subtitle1"

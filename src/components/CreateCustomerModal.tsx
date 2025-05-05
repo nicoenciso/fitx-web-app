@@ -39,7 +39,11 @@ const CreateCustomerModal = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value, type } = e.target;
+    setForm({
+      ...form,
+      [name]: type === "number" ? parseFloat(value) : value, // Convierte a número si el tipo es "number"
+    });
   };
 
   const handleSubmit = () => {
@@ -136,7 +140,8 @@ const CreateCustomerModal = () => {
               onChange={handleChange}
             />
             <TextField
-              label="costo"
+              type="number"
+              label="Valor membresía"
               variant="outlined"
               size="small"
               name="cost"
@@ -144,7 +149,8 @@ const CreateCustomerModal = () => {
               onChange={handleChange}
             />
             <TextField
-              label="Duración"
+              type="number"
+              label="Duración (días)"
               variant="outlined"
               size="small"
               name="durationDays"

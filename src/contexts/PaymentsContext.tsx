@@ -32,10 +32,9 @@ export const PaymentsProvider = ({ children }: { children: ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, gym]);
 
-  const totalPayments = payments.reduce(
-    (sum, payment) => sum + (payment.amount || 0),
-    0
-  );
+  const totalPayments = payments
+    .filter((payment) => typeof payment.amount === "number" && payment.amount > 0) 
+    .reduce((sum, payment) => sum + (payment.amount ?? 0), 0);
 
   const calculateMonthlyPayments = (
     payments: Payment[],

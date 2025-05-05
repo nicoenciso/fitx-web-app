@@ -16,6 +16,7 @@ import { addPaymentToCustomer } from "../services/payments";
 import { toast } from "react-toastify";
 import { usePaymentsContext } from "../hooks/usePaymentsContext";
 import { Customer } from "../interfaces/Customer";
+import { useCustomerContext } from "../hooks/useCustomerContext";
 
 interface NewPaymentModalProps {
   customer: Customer
@@ -32,6 +33,7 @@ const NewPaymentModal: React.FC<NewPaymentModalProps> = ({
   const [amount, setAmount] = useState(customer.cost || 0);
   const [date, setDate] = useState<Dayjs | null>(dayjs(new Date()));
   const { fetchPayments } = usePaymentsContext();
+  const { fetchCustomers } = useCustomerContext()
 
   const handleAddPayment = async () => {
     try {
@@ -43,6 +45,7 @@ const NewPaymentModal: React.FC<NewPaymentModalProps> = ({
       });
       toast.success("Pago registrado con éxito");
       fetchPayments();
+      fetchCustomers()
       onClose();
     } catch (error) {
       console.log(error);
