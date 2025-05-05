@@ -131,7 +131,7 @@ const OwnerGymDetailModal: React.FC<OwnerGymDetailModalProps> = ({
           )}
           {edit ? (
             <TextField
-              hiddenLabel
+              label="Nombre del gimnasio"
               variant="outlined"
               size="small"
               name="gymName"

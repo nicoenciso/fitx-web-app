@@ -146,7 +146,7 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
           {edit ? (
             <Stack direction="row" spacing={1}>
               <TextField
-                hiddenLabel
+                label="Nombres"
                 variant="outlined"
                 size="small"
                 name="names"
@@ -155,7 +155,7 @@ const CustomerDetailModal: React.FC<CustomerDetailModalProps> = ({
                 sx={{ width: "40%" }}
               />
               <TextField
-                hiddenLabel
+                label="Apellidos"
                 variant="outlined"
                 size="small"
                 name="lastNames"
