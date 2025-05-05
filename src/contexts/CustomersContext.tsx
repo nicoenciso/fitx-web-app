@@ -10,6 +10,7 @@ interface CustomerContextType {
   registeredCustomers: number;
   activeCustomers: number;
   delinquentCustomers: number;
+  highestCostCustomer: number;
 }
 
 const CustomerContext = createContext<CustomerContextType | undefined>(
@@ -38,6 +39,9 @@ export const CustomerProvider = ({ children }: { children: ReactNode }) => {
   const delinquentCustomers = customers.filter(
     (customer) => !customer.active
   ).length;
+  const highestCostCustomer = customers.reduce((max, customer) => {
+    return customer.cost && customer.cost > max ? customer.cost : max;
+  }, 0);
 
   return (
     <CustomerContext.Provider
@@ -48,6 +52,7 @@ export const CustomerProvider = ({ children }: { children: ReactNode }) => {
         registeredCustomers,
         activeCustomers,
         delinquentCustomers,
+        highestCostCustomer,
       }}
     >
       {children}

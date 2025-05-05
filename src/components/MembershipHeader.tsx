@@ -1,5 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
+import { useCustomerContext } from "../hooks/useCustomerContext";
 
 /**
  * Component for the membership header.
@@ -7,6 +8,7 @@ import StarIcon from "@mui/icons-material/Star";
  * @returns {JSX.Element}
  */
 const MembershipHeader = () => {
+  const { highestCostCustomer } = useCustomerContext()
   return (
     <Stack sx={{ p: 1, bgcolor: "secondary.main" }}>
       <Typography
@@ -18,7 +20,7 @@ const MembershipHeader = () => {
         fontWeight="bold"
       >
         <StarIcon />
-        VALOR MEMBRESIA 13000
+        VALOR MEMBRESIA {highestCostCustomer}
         <StarIcon />
       </Typography>
     </Stack>

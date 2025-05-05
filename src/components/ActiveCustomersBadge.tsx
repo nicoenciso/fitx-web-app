@@ -9,7 +9,7 @@ import { useCustomerContext } from "../hooks/useCustomerContext";
  * @returns {JSX.Element}
  */
 const ActiveCustomersBadge = () => {
-  const { activeCustomers } = useCustomerContext();
+  const { activeCustomers, registeredCustomers } = useCustomerContext();
 
   return (
     <DataBadge
@@ -25,7 +25,7 @@ const ActiveCustomersBadge = () => {
         width={150}
         height={100}
         value={activeCustomers}
-        valueMax={160}
+        valueMax={registeredCustomers}
         startAngle={-90}
         endAngle={90}
         sx={(theme) => ({
