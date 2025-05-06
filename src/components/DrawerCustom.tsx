@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+//import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router";
 
@@ -63,7 +63,7 @@ const DrawerCustom = () => {
         ))}
       </List>
       <Divider sx={{ bgcolor: "primary.dark" }} />
-      <List>
+     {/*  <List>
         <ListItem disablePadding>
           <ListItemButton onClick={() => navigate("/ayuda")}>
             <ListItemIcon>
@@ -72,7 +72,7 @@ const DrawerCustom = () => {
             <ListItemText primary="Ayuda" />
           </ListItemButton>
         </ListItem>
-      </List>
+      </List> */}
     </Box>
   );
 
