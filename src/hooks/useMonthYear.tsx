@@ -12,31 +12,54 @@ const useMonthYear = () => {
   };
 
   const getUniqueMonths = (payments: Payment[]): string[] => {
+    const monthNames = [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre",
+    ];
+
     const set = new Set(
       payments
         .map((p) => p.period)
         .filter((period): period is string => !!period)
     );
-    const result = Array.from(set).sort((a, b) => a.localeCompare(b));
-    return result
+
+    const result = Array.from(set).sort((a, b) => {
+      const [monthA, yearA] = a.split("-");
+      const [monthB, yearB] = b.split("-");
+      const dateA = new Date(parseInt(yearA), monthNames.indexOf(monthA));
+      const dateB = new Date(parseInt(yearB), monthNames.indexOf(monthB));
+      return dateA.getTime() - dateB.getTime();
+    });
+
+    return result;
   };
 
   const getLastSixMonths = (fromMonthYear: string): string[] => {
-    // Dividir el formato "Mayo-2025" en mes y año
     const [monthName, year] = fromMonthYear.split("-");
-    const monthIndex = monthNames.findIndex((name) => name.toLowerCase() === monthName.toLowerCase());
+    const monthIndex = monthNames.findIndex(
+      (name) => name.toLowerCase() === monthName.toLowerCase()
+    );
 
     if (monthIndex === -1) {
       throw new Error(`Mes inválido: ${monthName}`);
     }
 
-    // Crear la fecha inicial en formato "YYYY-MM-DD"
-    const start = dayjs(`${year}-${monthIndex + 1}-01`); // monthIndex + 1 porque los meses en dayjs son 1-based
+    const start = dayjs(`${year}-${monthIndex + 1}-01`);
 
     return Array.from({ length: 6 }, (_, i) => {
       const date = start.subtract(5 - i, "month");
-      const monthName = monthNames[date.month()]; // Obtener el nombre del mes
-      return `${monthName}-${date.year()}`; // Formatear como Mes-Año
+      const monthName = monthNames[date.month()];
+      return `${monthName}-${date.year()}`;
     });
   };
 
