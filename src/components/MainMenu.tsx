@@ -9,8 +9,8 @@ import {
   Typography,
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import SettingsIcon from "@mui/icons-material/Settings";
-import PersonIcon from "@mui/icons-material/Person";
+//import SettingsIcon from "@mui/icons-material/Settings";
+//import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useUserContext } from "../hooks/useUserContext";
 import { logout } from "../services/authentication";
@@ -99,7 +99,7 @@ const MainMenu = () => {
           </Stack>
         </MenuItem>
         <Divider sx={{ bgcolor: "primary.dark" }} />
-        <MenuItem onClick={handleClose}>
+        {/*  <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <SettingsIcon sx={{ color: "primary.contrastText" }} />
           </ListItemIcon>
@@ -110,7 +110,7 @@ const MainMenu = () => {
             <PersonIcon sx={{ color: "primary.contrastText" }} />
           </ListItemIcon>
           Perfil
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <LogoutIcon sx={{ color: "primary.contrastText" }} />

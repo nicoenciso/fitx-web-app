@@ -8,7 +8,15 @@ import { Outlet } from "react-router";
  */
 const MainLayout = () => {
   return (
-    <Stack sx={{ height: "100%", minHeight: "100vh", bgcolor: "primary.main" }}>
+    <Stack
+      sx={{
+        width: "100w",
+        height: "100%",
+        minHeight: "100vh",
+        bgcolor: "primary.main",
+        overflow: "hidden",
+      }}
+    >
       <AppBarCustom />
       <Outlet />
     </Stack>
