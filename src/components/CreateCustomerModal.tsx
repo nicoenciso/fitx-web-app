@@ -117,6 +117,9 @@ const CreateCustomerModal = () => {
               "& .MuiInputBase-root": {
                 boxShadow: `0px 4px 4px ${theme.palette.primary.light}`,
               },
+              "& .MuiFormHelperText-root": {
+                color: "primary.contrastText",
+              },
             }}
           >
             <TextField
@@ -168,6 +171,7 @@ const CreateCustomerModal = () => {
               name="password"
               value={form.password}
               onChange={handleChange}
+              helperText="* La contraseña debe contener al menos 6 carácteres."
             />
           </Stack>
         </DialogContent>
