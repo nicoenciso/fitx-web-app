@@ -8,6 +8,7 @@ export interface OwnerGym {
 }
 
 export interface CreateOwnerGymData {
+  gymName: string;
   email: string;
   password: string;
 }

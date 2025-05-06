@@ -30,19 +30,15 @@ const CreateCustomerModal = () => {
     password: "",
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  const handleModal = () => {
+    setOpen((prev) => !prev);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
     setForm({
       ...form,
-      [name]: type === "number" ? parseFloat(value) : value, // Convierte a número si el tipo es "number"
+      [name]: type === "number" ? parseFloat(value) : value,
     });
   };
 
@@ -52,7 +48,7 @@ const CreateCustomerModal = () => {
       createCustomer({ ...form, gymId: gym.id })
         .then(() => setLoading(false))
         .finally(() => {
-          handleClose();
+          handleModal();
           fetchCustomers();
         });
     }
@@ -61,7 +57,7 @@ const CreateCustomerModal = () => {
   return (
     <>
       <Button
-        onClick={handleClickOpen}
+        onClick={handleModal}
         size="small"
         startIcon={<PersonAddAlt1OutlinedIcon />}
         sx={{
@@ -81,7 +77,7 @@ const CreateCustomerModal = () => {
       </Button>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={handleModal}
         fullWidth
         disableEnforceFocus
         maxWidth="sm"
@@ -100,7 +96,7 @@ const CreateCustomerModal = () => {
       >
         <Typography variant="inherit" align="right">
           <CloseOutlinedIcon
-            onClick={handleClose}
+            onClick={handleModal}
             sx={{
               width: 20,
               height: 20,
@@ -177,7 +173,7 @@ const CreateCustomerModal = () => {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={handleClose}
+            onClick={handleModal}
             size="small"
             sx={{
               color: "primary.contrastText",

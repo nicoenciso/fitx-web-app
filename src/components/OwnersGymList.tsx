@@ -13,7 +13,7 @@ const OwnersGymList = () => {
       justifyContent="start"
       alignItems="center"
       spacing={2}
-      sx={{ mt: 3, height: "50vh", overflowY: "auto" }}
+      sx={{ mt: 3, height: "40vh", overflowY: "auto" }}
     >
       {owners.map((owner) => (
         <OwnerGymBadge key={owner.id} owner={owner} onClick={handleOpen} />

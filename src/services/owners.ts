@@ -65,10 +65,18 @@ const createOwner = async (data: CreateOwnerGymData) => {
       email: data.email,
       role: "ownergym",
     });
-    toast.success("Usuario creado con éxito");
+
+    const gymsRef = collection(db, "gyms");
+    const gymDocRef = doc(gymsRef);
+    await setDoc(gymDocRef, {
+      name: data.gymName,
+      ownerId: uid,
+    });
+
+    toast.success("Usuario y gimnasio creados con éxito");
   } catch (error) {
     console.error(error);
-    toast.error("Error al crear el usuario");
+    toast.error("Error al crear el usuario y gimnasio");
   }
 };
 
@@ -108,11 +116,35 @@ const editOwner = async (id: string, data: any) => {
 const deleteOwner = async (userId: string) => {
   try {
     const ownerRef = doc(db, "users", userId);
+
+    const gymsRef = collection(db, "gyms");
+    const gymQuery = query(gymsRef, where("ownerId", "==", userId));
+    const gymSnapshot = await getDocs(gymQuery);
+
+    if (!gymSnapshot.empty) {
+      const gymDocRef = gymSnapshot.docs[0].ref;
+
+      const customersRef = collection(db, "customers");
+      const customerQuery = query(
+        customersRef,
+        where("gymId", "==", gymDocRef.id)
+      );
+      const customerSnapshot = await getDocs(customerQuery);
+
+      const deleteCustomerPromises = customerSnapshot.docs.map((doc) =>
+        deleteDoc(doc.ref)
+      );
+      await Promise.all(deleteCustomerPromises);
+
+      await deleteDoc(gymDocRef);
+    }
+
     await deleteDoc(ownerRef);
-    toast.success("Cliente eliminado correctamente");
+
+    toast.success("Usuario, gimnasio y clientes eliminados correctamente");
   } catch (error) {
     console.error(error);
-    toast.error("Error al eliminar cliente");
+    toast.error("Error al eliminar el usuario, gimnasio o clientes");
     throw error;
   }
 };
