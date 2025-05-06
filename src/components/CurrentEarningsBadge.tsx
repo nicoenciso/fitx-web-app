@@ -22,7 +22,7 @@ const CurrentEarningsBadge = () => {
     >
       <Typography
         color="primary.contrastText"
-        variant="h3"
+        variant={totalPayments.toString().length > 6 ? "h4" : "h3"}
         fontWeight="bold"
         sx={{ fontFamily: "Instrument Sans, sans-serif" }}
       >
