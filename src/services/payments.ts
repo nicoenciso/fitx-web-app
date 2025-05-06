@@ -49,10 +49,7 @@ const addPaymentToCustomer = async ({
   }
 
   const customerData = customerSnap.data();
-  const { durationDays, gymId } = customerData;
-
-  // Calc expiration date with dayjs
-  const expiration = dayjs(now).add(durationDays, "day").toDate();
+  const { durationDays, gymId, paymentDate: lastPaymentDate } = customerData;
 
   await addDoc(collection(db, "payments"), {
     customerId,
@@ -62,7 +59,13 @@ const addPaymentToCustomer = async ({
     timestamp,
   });
 
-  // Update customer data
+  if (lastPaymentDate && timestamp.toDate() <= lastPaymentDate.toDate()) {
+    console.log("La nueva fecha de pago es anterior o igual a la última registrada. No se actualizan los campos.");
+    return;
+  }
+
+  const expiration = dayjs(now).add(durationDays, "day").toDate();
+
   await updateDoc(paymentsRef, {
     paymentDate: timestamp,
     expirationDate: Timestamp.fromDate(expiration),
