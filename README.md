@@ -1,5 +1,5 @@
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white) ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) ![Chart.js](https://img.shields.io/badge/chart.js-F5788D.svg?style=for-the-badge&logo=chart.js&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34)
-# fitx-web-app
+# fitx-web-app [![Netlify Status](https://api.netlify.com/api/v1/badges/1964a24c-21ee-450f-a92e-b3f82f2f9df9/deploy-status)](https://app.netlify.com/projects/fitx-web-app/deploys)
    [![Demo Video](https://img.youtube.com/vi/8EtwAQU-ZxY/0.jpg)](https://www.youtube.com/watch?v=8EtwAQU-ZxY)
 
 ## Descripción
